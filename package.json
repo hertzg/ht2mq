@@ -1,0 +1,7 @@
+{
+  "name": "ht2mq",
+  "version": "1.0.0",
+  "dependencies": {
+    "mqtt": "^3.0.0"
+  }
+}
