@@ -30,6 +30,13 @@ curl -X POST http://ht2mq-bridge.svc.local/my/sample/topic -H "X-Payload: payloa
 
 **Note**: The response DOES NOT  contian the prefix, but it will be added when actual publish happens.
 
+### Precedence
+In cases where requests match multiple or all usecases (eg: sending a post request with payload in query string, header and body) the payload that will be forwarded to mqtt is baed on the following precedence:
+
+1. Header (`x-payload`)
+2. Query String (`?payload_goes_here`)
+3. Body (http request body)
+
 ### Environment Variables
 |VARIABLE|Default|Description|
 |---|---| --- |
