@@ -7,7 +7,7 @@ Project was targeted towards being run inside docker, but you can also start it 
 
 Lets assume you started the service and have the accessible at `http://ht2mq-bridge.svc.local`.
 ```
-$ docker run -p 80:8080 -e MQTT_BROKER=mqtt://mqtt.svc.local hertzg/ht2mq:latest
+$ docker run -p 80:8080 -e MQTT_BROKER=mqtt://mqtt.svc.local ghcr.io/volschin/ht2mq:latest
 ```
 
 ### HTTP GET
