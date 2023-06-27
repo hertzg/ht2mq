@@ -1,7 +1,8 @@
 {
   "name": "ht2mq",
-  "version": "1.0.0",
+  "version": "1.1.0",
+  "license": "MIT",
   "dependencies": {
-    "mqtt": "^3.0.0"
+    "mqtt": "^4.3.7"
   }
 }
