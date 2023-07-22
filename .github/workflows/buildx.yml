@@ -40,23 +40,17 @@
             registry: ghcr.io
             username: ${{ github.actor }}
             password: ${{ secrets.GITHUB_TOKEN }}
-
-        # Extract metadata (tags, labels) for Docker
-        # https://github.com/docker/metadata-action
-        - name: Extract Docker metadata
-          id: dockerhub_meta
-          uses: docker/metadata-action@v4.4.0
-          with:
-            images: hertzg/ht2mq
             
 
         # Extract metadata (tags, labels) for Docker
         # https://github.com/docker/metadata-action
         - name: Extract Docker metadata
-          id: ghcr_meta
+          id: docker_meta
           uses: docker/metadata-action@v4.4.0
           with:
-            images: ghcr.io/hertzg/ht2mq
+            images: |
+              hertzg/ht2mq
+              ghcr.io/hertzg/ht2mq
             
         # Necessary for Multi-Arch images
         - name: Set up QEMU
@@ -71,13 +65,15 @@
         - name: Build and push Docker image
           uses: docker/build-push-action@v4.0.0
           with:
+            platforms: |
+              linux/amd64
+              linux/arm64/v8
+              linux/arm/v7
+              linux/arm/v6
+              linux/ppc64le
+              linux/s390x
             context: .
-            platforms: linux/amd64,linux/arm/v6,linux/arm/v7,linux/arm64,linux/arm64/v8,linux/ppc64le,linux/s390x
             pull: true
             push: ${{ github.event_name != 'pull_request' }}
-            tags: |
-              ${{ steps.ghcr_meta.outputs.tags }}
-              ${{ steps.dockerhub_meta.outputs.tags }}
-            labels: |
-              ${{ steps.ghcr_meta.outputs.labels }}
-              ${{ steps.dockerhub_meta.outputs.labels }}
+            tags: ${{ steps.docker_meta.outputs.tags }}
+            labels: ${{ steps.docker_meta.outputs.labels }}
