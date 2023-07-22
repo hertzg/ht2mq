@@ -50,15 +50,14 @@ exports.create = ({publish}) => {
           const {topic, payload} = await extractTopicAndPayload(req);
           const result = await publish(topic, payload)
 
-          buffer = new Buffer(JSON.stringify({
+          buffer = Buffer.from(JSON.stringify({
             topic, payload, result
           }), "utf8");
 
           res.writeHead(200, {'Content-Type': 'application/json', 'Content-Length': buffer.length})
-          res.end(buffer);
 
         } catch (e) {
-          buffer = new Buffer(JSON.stringify({error: e.message}), "utf8")
+          buffer = Buffer.from(JSON.stringify({error: e.message}), "utf8")
           res.writeHead(500, {'Content-Type': 'application/json', 'Content-Length': buffer.length})
         } finally {
           res.end(buffer);

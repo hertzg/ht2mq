@@ -7,6 +7,7 @@ const {
   MQTT_CLIENT_ID = null,
   MQTT_USERNAME = null,
   MQTT_PASSWORD = null,
+  MQTT_RETAIN = false,
 } = process.env;
 
 
@@ -22,6 +23,7 @@ MQTT
     })
     .then((client) => {
       console.log("[MQTT] Connected to %j", MQTT_BROKER);
+      console.log("[MQTT] retain: ", MQTT_RETAIN);
       return HTTP.create({
             publish: (topic, payload) => {
               return new Promise((resolve, reject) => {
@@ -29,7 +31,7 @@ MQTT
                   reject(new Error('Refusing to publish to empty topic'))
                 } else {
                   const prefixedTopic = `${ TOPIC_PREFIX }${ topic }`
-                  client.publish(prefixedTopic, payload, (error => {
+                  client.publish(prefixedTopic, payload, { retain: MQTT_RETAIN }, (error => {
                     const errorMessage = error && error.message;
                     resolve({
                       success: !errorMessage,

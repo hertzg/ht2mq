@@ -47,3 +47,4 @@ In cases where requests match multiple or all usecases (eg: sending a post reque
 |`MQTT_CLIENT_ID`|`null`| MQTT Client ID (optional).|
 |`MQTT_USERNAME`|`null`| MQTT Username (optional).|
 |`MQTT_PASSWORD`|`null`| MQTT Password (optional).|
+|`MQTT_RETAIN`|`false`| Set `true` to retain messages in MQTT (optional).|
